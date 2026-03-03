@@ -1,0 +1,145 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Out-of-Hours Support Form</title>
+  <style>
+    body {
+      font-family: sans-serif;
+      margin: 0;
+      padding: 20px;
+    }
+
+    .form-container {
+      max-width: 600px;
+      margin: 0 auto;
+      padding: 30px;
+      border: 1px solid #ddd;
+      border-radius: 5px;
+      box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+    }
+
+    h2 {
+      text-align: center;
+      margin-bottom: 20px;
+    }
+
+    label {
+      display: block;
+      margin-bottom: 5px;
+    }
+
+    input[type="text"],
+    input[type="tel"],
+    input[type="email"],
+    select,
+    textarea {
+      width: 100%;
+      padding: 10px;
+      border: 1px solid #ccc;
+      border-radius: 3px;
+      margin-bottom: 10px;
+    }
+
+    .submit-button {
+      background-color: #4CAF50;
+      color: white;
+      padding: 10px 15px;
+      border: none;
+      border-radius: 3px;
+      cursor: pointer;
+      transition: background-color 0.2s ease-in-out;
+    }
+
+    .submit-button:hover {
+      background-color: #38A3A5;
+    }
+
+    textarea {
+      height: 150px;
+      resize: vertical;
+    }
+
+    .success-prompt {
+      color: blue;
+      font-weight: bold;
+      margin-top: 10px;
+    }
+
+    .error {
+      color: red;
+      font-size: 0.9em;
+      padding: 10px;
+      border: 1px solid red;
+      border-radius: 3px;
+      background-color: #ffe6e6;
+      margin-top: 5px;
+    }
+  </style>
+</head>
+<body>
+  <div class="form-container">
+    <h2>Out of Hours Support Form</h2>
+    <form id="supportForm" action="https://webto.salesforce.com/servlet/servlet.WebToCase?encoding=UTF-8&orgId=00D0O000000rJuU" method="POST" onsubmit="return validateForm()">
+      <input type="hidden" name="orgid" value="00D0O000000rJuU">
+      <input type="hidden" name="retURL" value="https://sites.google.com/multitone.com/swf/home-live">
+      <input type="hidden" id="recordType" name="recordType" value="012QB000001cUyzYAE">
+      <input type="hidden" id="origin" name="origin" value="Out of Hours">
+      <input type="hidden" id="Incoming_Channel__c" name="Incoming_Channel__c" value="Phone">
+
+      <label for="name">Contact Name:</label>
+      <input id="name" maxlength="80" name="name" type="text" required>
+
+      <label for="phone">Contact Phone Number:</label>
+      <input id="00NQB00000BsPBB" maxlength="20" name="00NQB00000BsPBB" size="20" type="text" required>
+
+      <label for="email">Email to Receive Service Report:</label>
+      <input id="00NQB00000BsSCO" maxlength="80" name="00NQB00000BsSCO" size="20" type="text" required>
+      <div id="emailError" class="error" style="display: none;"></div>
+
+      <label for="engineeringArea">Engineering Area:</label>
+      <select id="00NQB000005omwi" name="00NQB000005omwi" title="Engineering Area*" required="required">
+        <option value="">--None--</option>
+        <option value="EA 1 - North">EA 1 - North</option>
+        <option value="EA 2 - Northern Ireland">EA 2 - Northern Ireland</option>
+        <option value="EA 3 - Midlands">EA 3 - Midlands</option>
+        <option value="EA 4 - South East">EA 4 - South East</option>
+        <option value="EA 5 - South West">EA 5 - South West</option>
+      </select>
+
+      <p class="note">Please structure the subject as "OOH - [Time Reported, 00:00] - [Location of Customer]"</p>
+
+      <label for="subject">Subject:</label>
+      <input id="subject" maxlength="80" name="subject" type="text" required>
+
+
+      <label for="description">Description:</label>
+      <textarea name="description" required></textarea>
+
+      <button type="submit" class="submit-button">Submit</button>
+
+      <p class="note">*For use by First Call Communications only</p>
+    </form>
+  </div>
+
+  <script>
+    function validateForm() {
+      const emailField = document.getElementById('00NQB00000BsSCO');
+      const emailError = document.getElementById('emailError');
+      const emailValue = emailField.value;
+
+      // Validate email: must contain "@" and "."
+      if (!emailValue.includes('@') || !emailValue.includes('.')) {
+        emailError.textContent = "Invalid email address, if an email address is not being supplied use: cscadmin@multitone.com as a substitute";
+        emailError.style.display = "block";
+        return false;
+      }
+
+      emailError.textContent = ""; // Clear error message if valid
+      emailError.style.display = "none";
+      return true;
+    }
+  </script>
+</body>
+</html>
